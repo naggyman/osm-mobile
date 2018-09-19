@@ -85,8 +85,12 @@ export default class SectionSwitch extends Component {
                 <Button
                     title = "Select Section"
                     onPress = {() => {
-                        AsyncStorage.setItem('selectedSection', JSON.stringify(this.state.selectedSection)).then((resp) => {
-                            this.navigation.navigate("Home")
+                        var toSave = {
+                            section: this.state.selectedSection, term: this.state.selectedTerm
+                        };
+                        console.log(toSave);
+                        AsyncStorage.setItem('selectedSection', JSON.stringify(toSave)).then((resp) => {
+                            //this.navigation.navigate("Home")
                         });
                     }}
                 />

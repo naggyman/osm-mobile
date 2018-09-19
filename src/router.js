@@ -12,7 +12,7 @@ import { FontAwesome } from "react-native-vector-icons";
 
 import SignIn from "./components/LoginScreen";
 import Home from "./components/Home";
-import Profile from "./components/Profile";
+import MemberListPage from "./components/MemberList";
 import SectionSwitch from './components/SectionSwitch';
 
 const headerStyle = {
@@ -41,9 +41,9 @@ export const SignedIn = createBottomTabNavigator(
       }
     },
     Profile: {
-        screen: Profile,
+        screen: MemberListPage,
         navigationOptions: {
-            tabBarLabel: "ppprofile"
+            tabBarLabel: "Members"
         }
     },
     SectionSwitch: {
