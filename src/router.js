@@ -12,7 +12,8 @@ import { FontAwesome } from "react-native-vector-icons";
 
 import SignIn from "./components/LoginScreen";
 import Home from "./components/Home";
-import Profile from "./components/Profile"
+import Profile from "./components/Profile";
+import SectionSwitch from './components/SectionSwitch';
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -43,6 +44,12 @@ export const SignedIn = createBottomTabNavigator(
         screen: Profile,
         navigationOptions: {
             tabBarLabel: "Profile"
+        }
+    },
+    SectionSwitch: {
+        screen: SectionSwitch, 
+        navigationOptions: {
+          tabBarLabel: "SectionSwitch"
         }
     }
   },
