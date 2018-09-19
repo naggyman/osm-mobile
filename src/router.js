@@ -43,7 +43,7 @@ export const SignedIn = createBottomTabNavigator(
     Profile: {
         screen: Profile,
         navigationOptions: {
-            tabBarLabel: "Profile"
+            tabBarLabel: "ppprofile"
         }
     },
     SectionSwitch: {

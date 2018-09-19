@@ -25,7 +25,10 @@ export default class NavigationPage extends Component {
                 />
                 <Button
                     title = "SIGN OUT"
-                    onPress = {() => {onSignOut().then(() => navigation.navigate("SignedOut"))}}
+                    onPress = {() => {
+                        console.log(props);
+                        onSignOut().then(() => navigation.navigate("SignedOut"))
+                    }}
                 />
             </View>
         );
