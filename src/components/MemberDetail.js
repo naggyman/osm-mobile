@@ -68,28 +68,26 @@ export default class MemberDetailPage extends Component {
     }
 
     renderItem = (structure) => {
-        console.log(structure);
-        return (
-            <View>
-                <Text>{structure.item.name}</Text>
-            </View>
-        );
+        var nameStr = structure.item.name;
+        console.log(nameStr);
+        return (<Text>{nameStr}</Text>);
+    }
+    
+    renderContent = (structure) => {
+        return (<Text>Content!</Text>);
     }
 
     render() {
         return (
-            <ScrollView style={styles.scroll}>
-                <View style={styles.container}>
-                    <Card containerStyle={styles.cardContainer}>
-                        {this.renderHeader(this.state.member,this.state.member.photoURL)}
-                        <FlatList
-                            data={this.state.structure}
-                            renderItem={(item) => <Text>>{item.name}</Text>}
-                            keyExtractor={(item, pos) => pos.toString()} 
-                        />
-                    </Card>
-                </View>
-            </ScrollView>
+            <View>
+                <ScrollView style={styles.scroll}>
+                    <View style={styles.container}>
+                        <Card containerStyle={styles.cardContainer}>
+                            {this.renderHeader(this.state.member)}
+                        </Card>
+                    </View>
+                </ScrollView>
+            </View>
         );
     }
 }
