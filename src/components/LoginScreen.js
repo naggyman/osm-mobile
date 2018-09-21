@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text, Button, Alert, TextInput } from "react-native";
-import { onSignIn } from '../auth';
+import { onSignIn, isSignedIn } from '../auth';
 
 export default class LoginScreen extends Component {
     constructor(props){
@@ -9,6 +9,11 @@ export default class LoginScreen extends Component {
             username: '',
             password: ''
         }
+        isSignedIn().then((val) => {
+            if(val) {
+                this.props.navigation.navigate("Home")
+            }
+        })
     }
     render() {
         return(
@@ -28,7 +33,7 @@ export default class LoginScreen extends Component {
                 title = "Sign In"
                 onPress = {() => {
                     onSignIn(this.state.username,this.state.password)
-                        .then(() => navigation.navigate("SignedIn"))
+                        .then(() => this.props.navigation.navigate("Home"))
                         .catch((error) => {
                             Alert.alert('Error Logging In:', JSON.stringify(error));
                         })

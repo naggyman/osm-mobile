@@ -14,22 +14,14 @@ import SignIn from "./components/LoginScreen";
 import Home from "./components/Home";
 import MemberListPage from "./components/MemberList";
 import SectionSwitch from './components/SectionSwitch';
+import MemberDetailPage from './components/MemberDetail';
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
 };
 
-export const SignedOut = createStackNavigator({
-  SignIn: {
-    screen: SignIn,
-    navigationOptions: {
-      title: "Sign In",
-      headerStyle
-    }
-  }
-});
 
-export const SignedIn = createBottomTabNavigator(
+const TabNav = createBottomTabNavigator(
   {
     Home: {
       screen: Home,
@@ -40,10 +32,10 @@ export const SignedIn = createBottomTabNavigator(
         ) */
       }
     },
-    Profile: {
+    MemberList: {
         screen: MemberListPage,
         navigationOptions: {
-            tabBarLabel: "Members"
+          tabBarLabel: "Members"
         }
     },
     SectionSwitch: {
@@ -62,18 +54,25 @@ export const SignedIn = createBottomTabNavigator(
   }
 );
 
-export const createRootNavigator = (signedIn = false) => {
-  return createSwitchNavigator(
-    {
-      SignedIn: {
-        screen: SignedIn
-      },
-      SignedOut: {
-        screen: SignedOut
-      }
-    },
-    {
-      initialRouteName: signedIn ? "SignedIn" : "SignedOut"
+export const StackNav = createStackNavigator({
+  SignIn: {
+    screen: SignIn,
+    navigationOptions: {
+      title: "Sign In",
+      headerStyle
     }
-  );
+  },
+  Home: {
+    screen: TabNav,
+    navigationOptions: {
+      header: null
+    }
+  },
+  MemberDetailPage: {
+    screen: MemberDetailPage
+  }
+});
+
+export const createRootNavigator = (signedIn = false) => {
+  return StackNav;
 };
