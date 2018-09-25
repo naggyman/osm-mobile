@@ -12,12 +12,18 @@ import {
     FlatList
   } from 'react-native';
 import {Avatar, Card, Icon, ListItem} from 'react-native-elements';
+import Accordion from 'react-native-collapsible/Accordion';
 
 const mainColor = '#01C89E'
+
+
+//parts of this page with inspiration from https://github.com/nattatorn-dev/react-native-user-profile/tree/master/screens/Profile1
 
 export default class MemberDetailPage extends Component {
     constructor(props){
         super(props);
+
+        console.log(props);
 
         const member = this.props.navigation.getParam('member');
         let structure = this.props.navigation.getParam('structure');
@@ -68,16 +74,23 @@ export default class MemberDetailPage extends Component {
     }
 
     renderItem = (structure) => {
-        var nameStr = structure.item.name;
-        console.log(nameStr);
-        return (<Text>{nameStr}</Text>);
+        //<Text>{structure.item.name}</Text>
+        return (
+            <ListItem 
+                title={structure.item.name}
+                onPress={() => {this.props.navigation.navigate("MemberDetailEntry", {details: structure.item})}}
+            />
+        );
     }
     
     renderContent = (structure) => {
         return (<Text>Content!</Text>);
     }
-
+    
     render() {
+        if(this.state.selected){
+            return(<Text>{this.state.selected.name}</Text>)
+        }
         return (
             <View>
                 <ScrollView style={styles.scroll}>
@@ -85,6 +98,12 @@ export default class MemberDetailPage extends Component {
                         <Card containerStyle={styles.cardContainer}>
                             {this.renderHeader(this.state.member)}
                         </Card>
+                        <Text>Further Details</Text>
+                        <FlatList
+                            data={this.state.structure}
+                            renderItem={this.renderItem}
+                            keyExtractor={(item) => item.group_id}
+                        />
                     </View>
                 </ScrollView>
             </View>

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {ListItem} from 'react-native-elements';
 
 export default (props) => {
-    console.log(props);
     return (
         <ListItem
               roundAvatar

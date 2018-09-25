@@ -34,7 +34,21 @@ export default class NavigationPage extends Component {
                 <Text>Home Page!</Text>
                 <Text> {this.state.selectedSection.section.groupname + " - " + this.state.selectedSection.section.sectionname} </Text>
                 
-                <Text>Members</Text>
+                
+
+                <Button
+                    title = "SIGN OUT"
+                    onPress = {() => {
+                        onSignOut().then(() => this.props.navigation.navigate("SignedOut"))
+                    }}
+                />
+            </View>
+        );
+    }
+}
+
+
+{/* <Text>Members</Text>
                 
                 <Text>Birthdays</Text>
                 <FlatList
@@ -52,15 +66,4 @@ export default class NavigationPage extends Component {
                 <FlatList
                     data={this.state.dashboardData.news}
                     renderItem={({item}) => <Text>{item.title} ({new moment(item.date).format("dddd, MMMM Do YYYY")})</Text>}
-                />
-
-                <Button
-                    title = "SIGN OUT"
-                    onPress = {() => {
-                        onSignOut().then(() => this.props.navigation.navigate("SignedOut"))
-                    }}
-                />
-            </View>
-        );
-    }
-}
+                /> */}

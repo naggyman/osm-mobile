@@ -15,6 +15,7 @@ import Home from "./components/Home";
 import MemberListPage from "./components/MemberList";
 import SectionSwitch from './components/SectionSwitch';
 import MemberDetailPage from './components/MemberDetail';
+import MemberDetailEntry from './components/MemberDetailEntry';
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -70,6 +71,9 @@ export const StackNav = createStackNavigator({
   },
   MemberDetailPage: {
     screen: MemberDetailPage
+  },
+  MemberDetailEntry: {
+    screen: MemberDetailEntry
   }
 });
 
