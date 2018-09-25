@@ -1,11 +1,24 @@
 import React, {Component} from 'react';
-import {Text, FlatList, ScrollView, Linking} from 'react-native';
+import {Text, FlatList, ScrollView, Linking, Button} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import call from 'react-native-phone-call'
 
 //parts of this page with inspiration from https://github.com/nattatorn-dev/react-native-user-profile/tree/master/screens/Profile1
 
 export default class MemberDetailEntry extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: navigation.getParam('details').name,
+          headerRight: (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Edit"
+              color="#fff"
+            />
+         )
+        };
+    };
+    
     constructor(props){
         super(props);
 

@@ -9,10 +9,12 @@ import {
     StyleSheet,
     Text,
     View,
-    FlatList
+    FlatList,
+    Button
   } from 'react-native';
 import {Avatar, Card, Icon, ListItem} from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
+import moment from 'moment';
 
 const mainColor = '#01C89E'
 
@@ -20,6 +22,17 @@ const mainColor = '#01C89E'
 //parts of this page with inspiration from https://github.com/nattatorn-dev/react-native-user-profile/tree/master/screens/Profile1
 
 export default class MemberDetailPage extends Component {
+    static navigationOptions = {
+        title: "Member Detail",
+        headerRight: (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Edit"
+              color="#fff"
+            />
+        )
+    }
+    
     constructor(props){
         super(props);
 
@@ -63,7 +76,7 @@ export default class MemberDetailPage extends Component {
                 <View style={styles.userAddressRow}>
                   <View style={styles.userCityRow}>
                     <Text style={styles.userCityText}>
-                      {member.age}
+                      {member.patrol_role_level_label || member.patrol_and_role}
                     </Text>
                   </View>
                 </View>
@@ -98,7 +111,12 @@ export default class MemberDetailPage extends Component {
                         <Card containerStyle={styles.cardContainer}>
                             {this.renderHeader(this.state.member)}
                         </Card>
-                        <Text>Further Details</Text>
+                        <View>
+                            <Text>Date of Birth: {new moment(this.state.member.date_of_birth).format("dddd, MMMM Do YYYY")}</Text>
+                            <Text>Joined Movement: {new moment(this.state.member.started).format("dddd, MMMM Do YYYY")}</Text>
+                            <Text>Started Section: {new moment(this.state.member.joined).format("dddd, MMMM Do YYYY")}</Text>
+                            <Text>SCOUT ID Number: {this.state.member.member_id}</Text>
+                        </View>
                         <FlatList
                             data={this.state.structure}
                             renderItem={this.renderItem}

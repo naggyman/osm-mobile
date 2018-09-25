@@ -74,9 +74,11 @@ export default class MemberListPage extends Component {
 
     renderHeader = () => {
         return <SearchBar 
-            placeholder='Type Here...'
-            onChangeText={text => this.searchFilterFunction(text)}
-        />;
+                    round
+                    placeholder='Type Here...'
+                    onChangeText={text => this.searchFilterFunction(text)}
+                    onClearText={() => this.setState({memberList: this.state.memberListFull})}
+                />;
     }
 
     renderSeparator = () => {
