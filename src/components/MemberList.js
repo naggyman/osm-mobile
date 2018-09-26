@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Button, AsyncStorage, FlatList} from 'react-native';
+import {Text, View, Button, AsyncStorage, FlatList, StyleSheet} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import { onSignOut } from '../auth';
 
@@ -9,6 +9,17 @@ import MemberListEntry from './MemberListEntry';
 
 
 export default class MemberListPage extends Component {
+    static navigationOptions = {
+        title: "Members",
+        headerRight: (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Edit"
+              color="#fff"
+            />
+        )
+    }
+
     constructor(props){
         super(props);
         this.state = {
@@ -75,6 +86,7 @@ export default class MemberListPage extends Component {
     renderHeader = () => {
         return <SearchBar 
                     round
+                    //containerStyle={styles.searchBar}
                     placeholder='Type Here...'
                     onChangeText={text => this.searchFilterFunction(text)}
                     onClearText={() => this.setState({memberList: this.state.memberListFull})}
@@ -113,3 +125,10 @@ export default class MemberListPage extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+        searchBar: {
+            backgroundColor: '#FFF'  
+        }
+    }
+);

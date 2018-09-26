@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Button, AsyncStorage, AppState, FlatList} from 'react-native';
+import {Text, View, Button, AsyncStorage, AppState, FlatList, TouchableOpacity} from 'react-native';
 import { onSignOut } from '../auth';
 import OSM from '../osm';
 
@@ -7,7 +7,20 @@ import moment from 'moment';
 
 import SectionList from '../sectionList';
 
+const CustomHeader = ({ params, switchSection }) => (
+    <TouchableOpacity>
+        <View>
+        <Text>{params.section}</Text>
+        <Text>{params.group} | {params.term}</Text>
+        </View>
+    </TouchableOpacity>
+);
+
 export default class NavigationPage extends Component {
+    static navigationOptions = ({navigation}) => ({
+        headerTitle: (navigation.state.params) ? <CustomHeader params={navigation.state.params} /> : 'Loading...'
+    })
+
     constructor(props){
         super(props);
         this.state = {
@@ -20,12 +33,14 @@ export default class NavigationPage extends Component {
         //load all needed data
         var sectionData = await AsyncStorage.getItem('selectedSection');
         var sectionJSON = JSON.parse(sectionData)
-        console.log(sectionJSON);
+        this.props.navigation.setParams({group: sectionJSON.section.groupname, section: sectionJSON.section.sectionname, term: sectionJSON.term.name})
+        this.setState({selectedSection: sectionJSON});
 
         var dashboardData = await OSM('/ext/dashboard/?action=getNextThings&sectionid=' + sectionJSON.section.sectionid + '&termid=' + sectionJSON.term.termid, {});
         var dashboardJSON = JSON.parse(dashboardData._bodyText);
         console.log(dashboardJSON);
-        this.setState({selectedSection: sectionJSON, dashboardData: dashboardJSON});
+        this.setState({dashboardData: dashboardJSON});
+        
     }
 
     render() {

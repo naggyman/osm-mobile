@@ -24,15 +24,11 @@ const headerStyle = {
 
 const TabNav = createBottomTabNavigator(
   {
-    Home: {
-      screen: Home,
-      navigationOptions: {
-        tabBarLabel: "Home",
-        /* tabBarIcon: ({ tintColor }) => (
-            <FontAwesome name="home" size={30} color={tintColor} />
-        ) */
+    Home: createStackNavigator({
+      Home: {
+        screen: Home
       }
-    },
+    }),
     MemberList: {
         screen: MemberListPage,
         navigationOptions: {
