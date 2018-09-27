@@ -16,6 +16,7 @@ import MemberListPage from "./components/MemberList";
 import SectionSwitch from './components/SectionSwitch';
 import MemberDetailPage from './components/MemberDetail';
 import MemberDetailEntry from './components/MemberDetailEntry';
+import MemberAttendance from './components/MemberAttendance';
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -33,6 +34,12 @@ const TabNav = createBottomTabNavigator(
         screen: MemberListPage,
         navigationOptions: {
           tabBarLabel: "Members"
+        }
+    },
+    MemberAttendance: {
+        screen: MemberAttendance,
+        navigationOptions: {
+          tabBarLabel: "Attendance"
         }
     }
   },

@@ -48,7 +48,6 @@ export default class NavigationPage extends Component {
         return (
             <View>
                 <Text>Home Page!</Text>
-                <Text> {this.state.selectedSection.section.groupname + " - " + this.state.selectedSection.section.sectionname} </Text>
                 
                 
 
