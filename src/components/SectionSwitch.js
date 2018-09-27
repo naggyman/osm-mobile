@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, Button, Picker, AsyncStorage} from 'react-native';
+import {NavigationActions} from 'react-navigation';
 
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -12,7 +13,7 @@ import Loader from './Loader';
 export default class SectionSwitch extends Component {
     constructor(props, navigation){
         super(props);
-        this.navigation = navigation;
+        this.navigation = props.navigation;
         this.state = {
             loading: true,
             sections: [],
@@ -91,6 +92,11 @@ export default class SectionSwitch extends Component {
                         console.log(toSave);
                         AsyncStorage.setItem('selectedSection', JSON.stringify(toSave)).then((resp) => {
                             //this.navigation.navigate("Home")
+                            this.navigation.dispatch(NavigationActions.reset({
+                                index: 0,
+                                key: null,
+                                actions: [NavigationActions.navigate({ routeName: "TabNav" })],
+                            }));
                         });
                     }}
                 />

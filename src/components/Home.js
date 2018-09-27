@@ -8,17 +8,19 @@ import moment from 'moment';
 import SectionList from '../sectionList';
 
 const CustomHeader = ({ params, switchSection }) => (
-    <TouchableOpacity>
-        <View>
+    <View>
         <Text>{params.section}</Text>
         <Text>{params.group} | {params.term}</Text>
-        </View>
-    </TouchableOpacity>
+    </View>
 );
 
 export default class NavigationPage extends Component {
     static navigationOptions = ({navigation}) => ({
-        headerTitle: (navigation.state.params) ? <CustomHeader params={navigation.state.params} /> : 'Loading...'
+        headerTitle: (navigation.state.params) ? 
+            <TouchableOpacity onPress={() => {navigation.navigate('SectionSwitch')}}>
+                <CustomHeader params={navigation.state.params} />
+            </TouchableOpacity> 
+            : 'Loading...'
     })
 
     constructor(props){
@@ -40,7 +42,6 @@ export default class NavigationPage extends Component {
         var dashboardJSON = JSON.parse(dashboardData._bodyText);
         console.log(dashboardJSON);
         this.setState({dashboardData: dashboardJSON});
-        
     }
 
     render() {

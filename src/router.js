@@ -34,12 +34,6 @@ const TabNav = createBottomTabNavigator(
         navigationOptions: {
           tabBarLabel: "Members"
         }
-    },
-    SectionSwitch: {
-        screen: SectionSwitch, 
-        navigationOptions: {
-          tabBarLabel: "SectionSwitch"
-        }
     }
   },
   {
@@ -70,6 +64,9 @@ export const StackNav = createStackNavigator({
   },
   MemberDetailEntry: {
     screen: MemberDetailEntry
+  },
+  SectionSwitch: {
+    screen: SectionSwitch
   }
 });
 
