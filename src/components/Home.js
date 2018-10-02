@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Button, AsyncStorage, AppState, FlatList, TouchableOpacity} from 'react-native';
+import {Text, View, Button, AsyncStorage, AppState, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import { onSignOut } from '../auth';
 import OSM from '../osm';
 
@@ -9,18 +9,27 @@ import SectionList from '../sectionList';
 
 const CustomHeader = ({ params, switchSection }) => (
     <View>
-        <Text>{params.section}</Text>
-        <Text>{params.group} | {params.term}</Text>
+        <Text style={styles.navTitleContainer}>{params.section}</Text>
+        <Text style={styles.navSubtitleContainer}>{params.group} | {params.term}</Text>
     </View>
 );
 
 export default class NavigationPage extends Component {
     static navigationOptions = ({navigation}) => ({
         headerTitle: (navigation.state.params) ? 
-            <TouchableOpacity onPress={() => {navigation.navigate('SectionSwitch')}}>
-                <CustomHeader params={navigation.state.params} />
-            </TouchableOpacity> 
-            : 'Loading...'
+            <View>
+                <TouchableOpacity onPress={() => {navigation.navigate('SectionSwitch')}}>
+                    <CustomHeader params={navigation.state.params} />
+                </TouchableOpacity> 
+            </View>
+            : 'Loading...',
+        headerRight: 
+            <Button 
+                title = "Sign Out" 
+                onPress = {() => {
+                    onSignOut().then(() => navigation.navigate("SignedOut"))
+                }}
+        />
     })
 
     constructor(props){
@@ -47,38 +56,46 @@ export default class NavigationPage extends Component {
     render() {
         return (
             <View>
-                <Text>Home Page!</Text>
-                
-                
+                <Text style={styles.headingContainer}>Welcome to OSM Mobile!</Text>
 
-                <Button
-                    title = "SIGN OUT"
-                    onPress = {() => {
-                        onSignOut().then(() => this.props.navigation.navigate("SignedOut"))
-                    }}
+                <Text style={styles.sectionHeadingContainer}>Birthdays</Text>
+                <FlatList
+                    data={this.state.dashboardData.birthdays}
+                    renderItem={({item}) => <Text>{new moment(item.dob).format("dddd, MMMM Do")} - {item.firstname} {item.lastname} - ({item.age}) </Text>}
+                    ListEmptyComponent={() => <Text>No upcoming birthdays</Text>}
                 />
+
+                <Text style={styles.sectionHeadingContainer}>Events</Text>
+                <FlatList
+                    data={this.state.dashboardData.events}
+                    renderItem={({item}) => <Text>{item.name} - {new moment(item.date).format("dddd, MMMM Do YYYY")} - (Yes: {item.yes}, No: {item.no})</Text>}
+                    ListEmptyComponent={() => <Text>No upcoming events</Text>}
+                />
+
+                <Text style={styles.sectionHeadingContainer}>News</Text>
+                <FlatList
+                    data={this.state.dashboardData.news}
+                    renderItem={({item}) => <Text>{item.title} ({new moment(item.date).format("dddd, MMMM Do YYYY")})</Text>}
+                    ListEmptyComponent={() => <Text>No current news</Text>}
+                /> 
             </View>
         );
     }
 }
 
-
-{/* <Text>Members</Text>
-                
-                <Text>Birthdays</Text>
-                <FlatList
-                    data={this.state.dashboardData.birthdays}
-                    renderItem={({item}) => <Text>{new moment(item.dob).format("dddd, MMMM Do")} - {item.firstname} {item.lastname} - ({item.age}) </Text>}
-                />
-
-                <Text>Events</Text>
-                <FlatList
-                    data={this.state.dashboardData.events}
-                    renderItem={({item}) => <Text>{item.name} - {new moment(item.date).format("dddd, MMMM Do YYYY")} - (Yes: {item.yes}, No: {item.no})</Text>}
-                />
-
-                <Text>News</Text>
-                <FlatList
-                    data={this.state.dashboardData.news}
-                    renderItem={({item}) => <Text>{item.title} ({new moment(item.date).format("dddd, MMMM Do YYYY")})</Text>}
-                /> */}
+const styles = StyleSheet.create({
+    sectionHeadingContainer: {
+        backgroundColor: '#4d2177',
+        fontSize: 19,
+        color: 'white'
+    },
+    headingContainer:{
+        fontSize: 20
+    },
+    navTitleContainer: {
+        fontSize: 20
+    },
+    navSubtitleContainer: {
+        fontSize: 12
+    }
+});
