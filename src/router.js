@@ -18,6 +18,7 @@ import MemberDetailPage from './components/MemberDetail';
 import MemberDetailEntry from './components/MemberDetailEntry';
 import MemberAttendance from './components/MemberAttendance';
 import NewsItem from './components/News';
+import EventList from './components/Events';
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -41,6 +42,12 @@ const TabNav = createBottomTabNavigator(
         screen: MemberAttendance,
         navigationOptions: {
           tabBarLabel: "Attendance"
+        }
+    },
+    EventList: {
+        screen: EventList,
+        navigationOptions: {
+          tabBarLabel: "Events"
         }
     }
   },
