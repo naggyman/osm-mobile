@@ -23,20 +23,11 @@ const mainColor = '#01C89E'
 
 export default class MemberDetailPage extends Component {
     static navigationOptions = {
-        title: "Member Detail",
-        headerRight: (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Edit"
-              color="#fff"
-            />
-        )
+        title: "Member Detail"
     }
     
     constructor(props){
         super(props);
-
-        console.log(props);
 
         const member = this.props.navigation.getParam('member');
         let structure = this.props.navigation.getParam('structure');
@@ -111,7 +102,7 @@ export default class MemberDetailPage extends Component {
                         <Card containerStyle={styles.cardContainer}>
                             {this.renderHeader(this.state.member)}
                         </Card>
-                        <View>
+                        <View style={{padding: 20}}>
                             <Text>Date of Birth: {new moment(this.state.member.date_of_birth).format("dddd, MMMM Do YYYY")}</Text>
                             <Text>Joined Movement: {new moment(this.state.member.started).format("dddd, MMMM Do YYYY")}</Text>
                             <Text>Started Section: {new moment(this.state.member.joined).format("dddd, MMMM Do YYYY")}</Text>

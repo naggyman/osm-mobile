@@ -17,6 +17,7 @@ import SectionSwitch from './components/SectionSwitch';
 import MemberDetailPage from './components/MemberDetail';
 import MemberDetailEntry from './components/MemberDetailEntry';
 import MemberAttendance from './components/MemberAttendance';
+import NewsItem from './components/News';
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -74,6 +75,9 @@ export const StackNav = createStackNavigator({
   },
   SectionSwitch: {
     screen: SectionSwitch
+  },
+  NewsItem: {
+    screen: NewsItem
   }
 });
 

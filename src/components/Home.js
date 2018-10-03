@@ -17,19 +17,21 @@ const CustomHeader = ({ params, switchSection }) => (
 export default class NavigationPage extends Component {
     static navigationOptions = ({navigation}) => ({
         headerTitle: (navigation.state.params) ? 
-            <View>
+            <View style={{padding:10}}>
                 <TouchableOpacity onPress={() => {navigation.navigate('SectionSwitch')}}>
                     <CustomHeader params={navigation.state.params} />
                 </TouchableOpacity> 
             </View>
             : 'Loading...',
         headerRight: 
-            <Button 
-                title = "Sign Out" 
-                onPress = {() => {
-                    onSignOut().then(() => navigation.navigate("SignedOut"))
-                }}
-        />
+            <View style={{padding:20}}>
+                <Button 
+                    title = "Sign Out" 
+                    onPress = {() => {
+                        onSignOut().then(() => navigation.navigate("SignedOut"))
+                    }}
+                />
+            </View>
     })
 
     constructor(props){
@@ -55,7 +57,7 @@ export default class NavigationPage extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{padding: 10}}>
                 <Text style={styles.headingContainer}>Welcome to OSM Mobile!</Text>
 
                 <Text style={styles.sectionHeadingContainer}>Birthdays</Text>
@@ -75,7 +77,7 @@ export default class NavigationPage extends Component {
                 <Text style={styles.sectionHeadingContainer}>News</Text>
                 <FlatList
                     data={this.state.dashboardData.news}
-                    renderItem={({item}) => <Text>{item.title} ({new moment(item.date).format("dddd, MMMM Do YYYY")})</Text>}
+                    renderItem={({item}) => <TouchableOpacity onPress={() => {this.props.navigation.navigate("NewsItem", {news: item})}}><Text>{item.title} ({new moment(item.date).format("dddd, MMMM Do YYYY")})</Text></TouchableOpacity>}
                     ListEmptyComponent={() => <Text>No current news</Text>}
                 /> 
             </View>
