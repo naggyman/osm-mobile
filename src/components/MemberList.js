@@ -116,7 +116,7 @@ export default class MemberListPage extends Component {
                     refreshing={this.state.refreshing}
                     renderItem={({item}) => <MemberListEntry member={item} navigation={this.props.navigation} structure={this.state.memberDetailStructure} />}
                     onRefresh={() => {this.refreshData}}
-                    keyExtractor={(item) => item.member_id} 
+                    keyExtractor={(item) => item.member_id.toString()} 
                     ListHeaderComponent={this.renderHeader}
                     stickyHeaderIndices={[0]}
                     ItemSeparatorComponent={this.renderSeparator}

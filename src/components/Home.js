@@ -76,6 +76,7 @@ export default class NavigationPage extends Component {
                     data={this.state.dashboardData.birthdays}
                     renderItem={({item}) => <Text>{new moment(item.dob).format("dddd, MMMM Do")} - {item.firstname} {item.lastname} - ({item.age}) </Text>}
                     ListEmptyComponent={() => <Text>No upcoming birthdays</Text>}
+                    keyExtractor={(item) => JSON.stringify(item)} 
                 />
 
                 <Text style={styles.sectionHeadingContainer}>Events</Text>
@@ -83,6 +84,7 @@ export default class NavigationPage extends Component {
                     data={this.state.dashboardData.events}
                     renderItem={({item}) => <Text>{item.name} - {new moment(item.date).format("dddd, MMMM Do YYYY")} - (Yes: {item.yes}, No: {item.no})</Text>}
                     ListEmptyComponent={() => <Text>No upcoming events</Text>}
+                    keyExtractor={(item) => JSON.stringify(item)}
                 />
 
                 <Text style={styles.sectionHeadingContainer}>News</Text>
@@ -90,6 +92,7 @@ export default class NavigationPage extends Component {
                     data={this.state.dashboardData.news}
                     renderItem={({item}) => <TouchableOpacity onPress={() => {this.props.navigation.navigate("NewsItem", {news: item})}}><Text>{item.title} ({new moment(item.date).format("dddd, MMMM Do YYYY")})</Text></TouchableOpacity>}
                     ListEmptyComponent={() => <Text>No current news</Text>}
+                    keyExtractor={(item) => JSON.stringify(item)}
                 /> 
             </View>
         );

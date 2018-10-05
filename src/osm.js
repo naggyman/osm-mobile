@@ -1,7 +1,7 @@
 // Wrapper to perform API calls
 
 import {AsyncStorage, Fetch} from 'react-native';
-import {apiid, token} from '../secrets';
+import {url} from '../secrets';
 import { func } from 'prop-types';
 
 export const USER_KEY = "auth-demo-key";
@@ -26,8 +26,8 @@ export default async function (text, body) {
     }
     const bodyParameters = Object.assign(body, additions);
     console.log(bodyParameters);
-    console.log("Fetching " + URL_BASE + text);
-    var res = await fetch(URL_BASE + text, {
+    console.log("Fetching " + url + text + " body:" + getFormUrlEncoded(bodyParameters));
+    var res = await fetch(url + text, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

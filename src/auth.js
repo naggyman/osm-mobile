@@ -1,9 +1,7 @@
 import { AsyncStorage, Fetch } from "react-native";
 
-import {apiid, token} from '../secrets';
+import {apiid, token, url} from '../secrets';
 export const USER_KEY = "auth-demo-key";
-
-const urlBase = 'https://osm.scouts.org.nz/';
 
 function getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -23,7 +21,8 @@ export async function onSignIn(username, password){
         token: token,
     }
     console.log(getFormUrlEncoded(loginDetails));
-    var res = await fetch(urlBase + 'users.php?action=authorise', {
+    console.log("Fetching " + url + 'users.php?action=authorise');
+    var res = await fetch(url + 'users.php?action=authorise', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -31,12 +30,12 @@ export async function onSignIn(username, password){
         body: getFormUrlEncoded(loginDetails)
     })
     var resJson = await res.json();
+    console.log(resJson);
     if(resJson.error){
         throw Error(resJson.error.message);
     }
     resJson.apiid = apiid;
     resJson.token = token;
-    console.log(resJson);
     return AsyncStorage.setItem(USER_KEY, JSON.stringify(resJson));
 }
 
