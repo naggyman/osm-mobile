@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, Button, Picker, AsyncStorage} from 'react-native';
 import {NavigationActions} from 'react-navigation';
-
-import RNPickerSelect from 'react-native-picker-select';
-
-import { onSignOut } from '../auth';
-import OSM from '../osm';
 import SectionList from '../sectionList';
 
 import Loader from './Loader';
@@ -24,25 +19,23 @@ export default class SectionSwitch extends Component {
 
     async componentDidMount(){
         var sectionList = await SectionList();
-        //var sectionListJson = await sectionList.json();
-        console.log(sectionList); 
         var output = [];
-        sectionList.forEach(section => {
+        await sectionList.forEach(section => {
             output.push(section.groupname + ' - ' + section.sectionname)
         })
-        this.setState({sections: sectionList});
         let now = new Date();
-        sectionList[0].terms.forEach((term) => {
-            if(new Date(term.startdate) < now && new Date(term.enddate) > now){
-                this.setState({selectedTerm: term});
+        var selectedTerm = {};
+        for(term in sectionList[0].terms){
+            var thisTerm = sectionList[0].terms[term];
+            if(new Date(thisTerm.startdate) < now && new Date(thisTerm.enddate) > now){
+                selectedTerm = thisTerm;
             }
-        })
+        }
 
-        this.setState({loading: false});
+        this.setState({sections: sectionList, selectedSection: sectionList[0], loading: false, selectedTerm: selectedTerm});
     }
 
     updateSection = (a) => {
-        console.log(a);
         this.setState({selectedSection:a});
 
         let now = new Date();
@@ -59,6 +52,7 @@ export default class SectionSwitch extends Component {
     }
 
     render() {
+        console.log(this.state.selectedTerm)
         return (
             <View>
                 <Loader loading={this.state.loading}/>
@@ -91,12 +85,12 @@ export default class SectionSwitch extends Component {
                         };
                         console.log(toSave);
                         AsyncStorage.setItem('selectedSection', JSON.stringify(toSave)).then((resp) => {
-                            //this.navigation.navigate("Home")
-                            this.navigation.dispatch(NavigationActions.reset({
-                                index: 0,
-                                key: null,
-                                actions: [NavigationActions.navigate({ routeName: "TabNav" })],
-                            }));
+                            this.navigation.navigate("Home", {reset:true})
+                            //this.navigation.dispatch(NavigationActions.reset({
+                              //  index: 0,
+                               // key: null,
+                               // actions: [NavigationActions.navigate({ routeName: "TabNav" })],
+                            //}));
                         });
                     }}
                 />

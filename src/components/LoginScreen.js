@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { View, Text, Button, Alert, TextInput } from "react-native";
+import { View, Text, Button, Alert, TextInput, AsyncStorage } from "react-native";
 import { onSignIn, isSignedIn } from '../auth';
+import SectionList from '../sectionList';
 
 export default class LoginScreen extends Component {
     constructor(props){
@@ -15,6 +16,35 @@ export default class LoginScreen extends Component {
             }
         })
     }
+
+    async doPostSignin() {
+        var sectionList = await SectionList();
+
+        var selectedSection = sectionList[0];
+        var selectedTerm = {};
+
+        var now = new Date();
+
+        for(term in selectedSection.terms){
+            var thisTerm = selectedSection.terms[term];
+            if(new Date(thisTerm.startdate) < now && new Date(thisTerm.enddate) > now){
+                selectedTerm = thisTerm;
+            }
+        }
+
+        if(selectedTerm === {}){
+            selectedTerm = selectedSection.terms[0];
+        }
+
+        var toSave = {
+            section: selectedSection, term: selectedTerm
+        };
+
+        await AsyncStorage.setItem('selectedSection', JSON.stringify(toSave));
+
+        this.props.navigation.navigate("Home");
+    }
+
     render() {
         return(
             <View>
@@ -33,7 +63,9 @@ export default class LoginScreen extends Component {
                 title = "Sign In"
                 onPress = {() => {
                     onSignIn(this.state.username,this.state.password)
-                        .then(() => this.props.navigation.navigate("Home"))
+                        .then(() => {
+                            this.doPostSignin();
+                        })
                         .catch((error) => {
                             Alert.alert('Error Logging In:', JSON.stringify(error));
                         })

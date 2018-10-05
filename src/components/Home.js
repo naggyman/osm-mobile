@@ -38,11 +38,17 @@ export default class NavigationPage extends Component {
         super(props);
         this.state = {
             selectedSection: {section:{}, term:{}},
-            dashboardData: {}
+            dashboardData: {},
+            appState: AppState.currentState,
         }
+        this.props.navigation.setParams({reset:false})
     }
 
     async componentDidMount(){
+        this.refresh();
+    }
+
+    async refresh(){
         //load all needed data
         var sectionData = await AsyncStorage.getItem('selectedSection');
         var sectionJSON = JSON.parse(sectionData)
@@ -56,6 +62,11 @@ export default class NavigationPage extends Component {
     }
 
     render() {
+        console.log('rendering home')
+        if(this.props.navigation.state.params && this.props.navigation.state.params.reset){
+            this.refresh();
+            this.props.navigation.setParams({reset:false});
+        }
         return (
             <View style={{padding: 10}}>
                 <Text style={styles.headingContainer}>Welcome to OSM Mobile!</Text>

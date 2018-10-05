@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+//import { AsyncStorage } from "react-native";
 import OSM from './osm';
 
 export default async function() {
