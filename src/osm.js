@@ -5,7 +5,6 @@ import {url} from '../secrets';
 import { func } from 'prop-types';
 
 export const USER_KEY = "auth-demo-key";
-export const URL_BASE = "https://osm.scouts.org.nz/";
 
 export function getFormUrlEncoded(toConvert) {
     const formBody = [];

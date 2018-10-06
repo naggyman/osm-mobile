@@ -38,11 +38,6 @@ const TabNav = createBottomTabNavigator(
           tabBarLabel: "Members"
         }
     },
-    /*MemberAttendance: createStackNavigator({
-      Home: {
-        screen: MemberAttendance
-      }
-    }), */
     EventList: createStackNavigator({
       Home: {
         screen: EventList
