@@ -9,13 +9,6 @@ export default class MemberDetailEntry extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
           title: navigation.getParam('details').name,
-          headerRight: (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Edit"
-              color="#fff"
-            />
-         )
         };
     };
     
@@ -70,7 +63,7 @@ export default class MemberDetailEntry extends Component {
                 <FlatList 
                     data={this.state.details.columns}
                     renderItem={this.renderItem}
-                    keyExtractor={(item) => item.column_id}
+                    keyExtractor={(item) => item.column_id.toString()}
                 />
             </ScrollView>
         );

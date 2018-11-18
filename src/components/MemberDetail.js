@@ -111,7 +111,7 @@ export default class MemberDetailPage extends Component {
                         <FlatList
                             data={this.state.structure}
                             renderItem={this.renderItem}
-                            keyExtractor={(item) => item.group_id}
+                            keyExtractor={(item) => item.group_id.toString()}
                         />
                     </View>
                 </ScrollView>
