@@ -27,22 +27,38 @@ const headerStyle = {
 
 const TabNav = createBottomTabNavigator(
   {
-    Home: createStackNavigator({
-      Home: {
-        screen: Home
-      }
-    }),
-    MemberList: {
-        screen: MemberListPage,
-        navigationOptions: {
-          tabBarLabel: "Members"
+    Home: {
+      screen: createStackNavigator({
+        Home: {
+          screen: Home
         }
-    },
-    EventList: createStackNavigator({
-      Home: {
-        screen: EventList
+      }),
+      navigationOptions: {
+        tabBarLabel: "Home"
       }
-    })
+    },
+    MemberList: {
+      screen: MemberListPage,
+      navigationOptions: {
+        tabBarLabel: "Members"
+      }
+    },
+    EventList: {
+      screen: createStackNavigator({
+        Home: {
+          screen: EventList
+        }
+      }),
+      navigationOptions: {
+        tabBarLabel: "Events"
+      }
+    },
+    MemberAttendance: {
+      screen: MemberAttendance,
+      navigationOptions: {
+        tabBarLabel: "Attendance"
+      }
+    }
   },
   {
     tabBarOptions: {
